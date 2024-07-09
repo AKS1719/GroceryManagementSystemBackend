@@ -12,7 +12,12 @@ app.use(cookieParser());
 // routes
 
 app.use(cors({
-    origin: '*'
+    origin: '*',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    exposedHeaders: ['Authorization', 'X-Requested-With'],
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 }))
 
 import userRouter from './routes/user.routes.js'
