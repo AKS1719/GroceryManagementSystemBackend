@@ -1,0 +1,30 @@
+[
+    {
+        "id":1,
+        "image":"/api/v1/images/loteChocopie.jpeg",
+        "description":"A sweet snack",
+        "name":"Lotte ChocoPie",
+        "price":"100"
+    },
+    {
+        "id":2,
+        "image":"/api/v1/images/flour.jpeg",
+        "description":"Flour to make your chappaties round",
+        "name":"Ashirwad Chakki Atta",
+        "price":"300"
+    },
+    {
+        "id":3,
+        "image":"/api/v1/images/kaju.jpeg",
+        "description":"Dry Fruits to keep you groove",
+        "name":"Kalvai Cashews",
+        "price":"382"
+    },
+    {
+        "id":4,
+        "image":"/api/v1/images/nachos.jpg",
+        "description":"Flavour and health both",
+        "name":"Nachos",
+        "price":"42"
+    }
+]

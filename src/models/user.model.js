@@ -33,6 +33,11 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    isSeller:{
+        type:Boolean,
+        required:true,
+        default:false
+    },
     refreshToken:{
         type:String,
     }

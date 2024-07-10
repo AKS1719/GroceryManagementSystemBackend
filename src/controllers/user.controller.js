@@ -25,14 +25,14 @@ const generateAccessAndRefereshTokens = async (userId) => {
 
 
 const registerUser = asyncHandler(async(req,res)=>{
-    console.log(req.body)
+    // console.log(req.body)
     const {firstName, lastName , email,password,Number} = req.body;
     if(!firstName ||!lastName ||!email ||!password ||!Number){
         throw new ApiError(404, "Please provide all required fields")
     }
     const existedUser = await User.findOne({email:email})
     if(existedUser){
-        throw new ApiError(400, "User with this email already exists")
+        return res.status(200).send("User already exists")
     }
 
     const user = await User.create({
@@ -115,6 +115,7 @@ const logoutUser = asyncHandler(async (req,res)=>{
     const options ={
         httpOnly:true,
         secure:true,
+        sameSite:'None'
     }
 
     return res
@@ -126,7 +127,7 @@ const logoutUser = asyncHandler(async (req,res)=>{
 
 })
 
-const getCurrentUSer = asyncHandler(async (req,res)=>{
+const getCurrentUser = asyncHandler(async (req,res)=>{
     const user = await User.findById(req.user._id).select("-password -refreshToken")
     if(!user){
         throw new ApiError(500, "Something went wrong while getting user")
@@ -162,7 +163,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
         const options = {
             httpOnly: true,
-            secure: true
+            secure: true,
         }
 
         const { accessToken, newrefreshToken } = await generateAccessAndRefereshTokens(user._id)
@@ -189,6 +190,16 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
 
 
+const updateUser = asyncHandler(async (req,res)=>{
+    const user = User.findOneById(req.user._id)
+    user.isSeller = true
+    await user.save(
+        { validateBeforeSave: false }
+    )
+    return res.json(
+        new ApiResponse(200,user,"User updated successfully")
+    )
+})
 
 
 export {
@@ -196,5 +207,7 @@ export {
     loginUser,
     logoutUser,
     refreshAccessToken,
-    getCurrentUSer,
+    getCurrentUser,
+    updateUser,
+ 
 }

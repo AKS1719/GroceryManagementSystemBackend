@@ -1,6 +1,12 @@
 import { Schema } from "mongoose";
 
 const cartSchema = new Schema({
+            quantity: {
+                type: Number,
+                required: true,
+                min: 1,
+                default: 1
+            },
     user:{
         type: Schema.Types.ObjectId,
         ref: "User"
@@ -8,7 +14,7 @@ const cartSchema = new Schema({
     products:[{
         type: Schema.Types.ObjectId,
         ref: "Product"
-    }]
+    }],
 },{timestamps:true})
 
 export const Cart = mongoose.model("Cart", cartSchema);
